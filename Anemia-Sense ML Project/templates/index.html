@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anemia Sense | Unique Website</title>
+    <style>
+        :root {
+            --primary-color: #d31a1a;
+            --secondary-color: #f4f4f4;
+            --accent-color: #9b0f0f;
+            --text-dark: #333;
+            --text-light: white;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--secondary-color);
+            overflow-x: hidden;  /* Prevent horizontal scrollbar */
+            overflow-y: auto;    /* Allow vertical scrolling */
+            display: block;      /* Normal flow */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            color: var(--text-light);
+            margin: 0 25px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: var(--primary-color);
+        }
+
+        .section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        /* Blood Flow Animation */
+        @keyframes bloodFlow {
+            from { background-position: 0% 0%; }
+            to { background-position: 100% 0%; }
+        }
+
+        /* Home Section with combined content */
+        #home {
+            background: linear-gradient(90deg, #d31a1a 25%, #9b0f0f 50%, #650606 75%);
+            background-size: 200% 100%;
+            animation: bloodFlow 5s infinite linear;
+            color: var(--text-light);
+            flex-direction: row; /* Side-by-side layout */
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .intro-content {
+            max-width: 45%;
+            text-align: left;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .intro-content h2 {
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        
+        .intro-content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+        }
+
+        .box-container {
+            max-width: 45%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .box {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle transparent background */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            padding: 25px;
+            border-radius: 15px;
+            width: 250px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            color: var(--text-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .box h2 {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .box p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="prediction">Predict</a>
+    </div>
+    
+    <div id="home" class="section">
+        <div class="intro-content">
+            <h2>Anemia Sense: Your Health Guardian</h2>
+            <p>Track your blood health with confidence and take the right steps toward a stronger, healthier life.</p>
+        </div>
+        
+        <div class="box-container">
+            <div class="box">
+                <h2>MCH</h2>
+                <p>Mean Corpuscular Hemoglobin (MCH) measures the average amount of hemoglobin in your red blood cells.</p>
+            </div>
+            <div class="box">
+                <h2>MCHC</h2>
+                <p>Mean Corpuscular Hemoglobin Concentration (MCHC) measures the concentration of hemoglobin in your red blood cells.</p>
+            </div>
+            <div class="box">
+                <h2>MCV</h2>
+                <p>Mean Corpuscular Volume (MCV) measures the average size of your red blood cells.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

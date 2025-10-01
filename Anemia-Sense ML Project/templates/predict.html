@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anemia Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff5f5; /* very light red background */
+            margin: 0;
+            padding-top: 70px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #b71c1c; /* dark red navbar */
+            padding: 15px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar a {
+            color: white;
+            margin: 0 25px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ffcccc; /* light red hover */
+            transform: scale(1.1);
+        }
+
+        .container {
+            padding: 30px;
+            max-width: 600px;
+            margin: 80px auto 20px;
+            background-color: #ffffff; /* Clean white container */
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(183, 28, 28, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h4 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #b71c1c;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #8b0000;
+            font-size: 1.1em;
+        }
+
+        select, input[type="text"] {
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #e57373;
+            border-radius: 8px;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: #b71c1c; /* red focus border */
+            box-shadow: 0 0 8px rgba(183, 28, 28, 0.3);
+            outline: none;
+        }
+
+        .btn {
+            background-image: linear-gradient(to right, #d32f2f 0%, #b71c1c 100%); /* red gradient */
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 10px rgba(183, 28, 28, 0.4);
+        }
+
+        .btn:hover {
+            background-image: linear-gradient(to right, #f44336 0%, #c62828 100%); /* brighter red hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(244, 67, 54, 0.5);
+        }
+
+        /* Styles for the pop-up */
+        .popup-container {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+        }
+
+        .popup-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 30px;
+            border: 1px solid #b71c1c;
+            width: 80%;
+            max-width: 450px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(183, 28, 28, 0.3);
+            text-align: center;
+            position: relative;
+            animation: fadeIn 0.5s;
+        }
+
+        .close-btn {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover, .close-btn:focus {
+            color: #b71c1c;
+            text-decoration: none;
+        }
+
+        #popup-title {
+            font-size: 1.8em;
+            color: #b71c1c;
+            margin-bottom: 15px;
+        }
+
+        #popup-message {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="prediction">Predict</a>
+    </div>
+
+    <div class="container">
+        <h4>Anemia Predictor</h4>
+        <form action="/predict" method="post">
+            <label for="Gender">Gender:</label>
+            <select name="Gender" required>
+                <option value="">Select Gender</option>
+                <option value="0">Male</option>
+                <option value="1">Female</option>
+            </select>
+
+            <label for="Hemoglobin">Hemoglobin (Range: 6-16):</label>
+            <input type="text" name="Hemoglobin" required>
+
+            <label for="MCH">Mean Corpuscular Hemoglobin (Range: 16-30):</label>
+            <input type="text" name="MCH" required>
+
+            <label for="MCHC">Mean Corpuscular Hemoglobin Concentration (Range: 27-34):</label>
+            <input type="text" name="MCHC" required>
+
+            <label for="MCV">Mean Corpuscular Volume (Range: 69-100):</label>
+            <input type="text" name="MCV" required>
+
+            <button type="submit" class="btn btn-warning btn-block btn-large">Predict</button>
+        </form>
+    </div>
+
+    <div id="result-popup" class="popup-container">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="popup-title">Anemia Prediction Result</h3>
+            <p id="popup-message"></p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const resultText = "{{ prediction_text }}";
+
+            if (resultText && resultText.trim() !== "") {
+                const popup = document.getElementById('result-popup');
+                const popupMessage = document.getElementById('popup-message');
+                const closeBtn = document.querySelector('.close-btn');
+                const body = document.body;
+
+                popupMessage.textContent = resultText;
+                popup.style.display = 'block';
+                body.style.overflow = 'hidden';
+
+                closeBtn.onclick = function() {
+                    popup.style.display = 'none';
+                    body.style.overflow = '';
+                }
+
+                window.onclick = function(event) {
+                    if (event.target == popup) {
+                        popup.style.display = 'none';
+                        body.style.overflow = '';
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+</html>
